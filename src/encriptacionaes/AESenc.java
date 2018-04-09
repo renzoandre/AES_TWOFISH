@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class AESenc {
 
-    private static final String ALGO = "AES";
+    private static final String ALGORITMO = "AES";
     //private static final byte[] keyValue = new byte[]{'T', 'h', 'e', 'B', 'e', 's', 't', 'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y'};
     private static byte[] keyValue;
 
@@ -23,7 +23,7 @@ public class AESenc {
      */
     public static String encrypt(String data) throws Exception {
         Key key = generateKey();
-        Cipher c = Cipher.getInstance(ALGO);
+        Cipher c = Cipher.getInstance(ALGORITMO);
         c.init(Cipher.ENCRYPT_MODE, key);
         byte[] encVal = c.doFinal(data.getBytes());
         return Base64.getEncoder().encodeToString(encVal);
@@ -37,7 +37,7 @@ public class AESenc {
      */
     public static String decrypt(String encryptedData) throws Exception {
         Key key = generateKey();
-        Cipher c = Cipher.getInstance(ALGO);
+        Cipher c = Cipher.getInstance(ALGORITMO);
         c.init(Cipher.DECRYPT_MODE, key);
         byte[] decordedValue = Base64.getDecoder().decode(encryptedData);
         byte[] decValue = c.doFinal(decordedValue);
@@ -48,7 +48,7 @@ public class AESenc {
      * Generate a new encryption key.
      */
     private static Key generateKey() throws Exception {
-        return new SecretKeySpec(keyValue, ALGO);
+        return new SecretKeySpec(keyValue, ALGORITMO);
     }
 
 }

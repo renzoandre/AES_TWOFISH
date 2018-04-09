@@ -67,6 +67,7 @@ public class EncripDesencrip extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         txtClave = new javax.swing.JTextField();
         lbl3 = new javax.swing.JLabel();
+        lblConteo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -116,9 +117,17 @@ public class EncripDesencrip extends javax.swing.JFrame {
         });
 
         txtClave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveKeyTyped(evt);
+            }
+        });
 
         lbl3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl3.setText("Clave :");
+
+        lblConteo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblConteo.setText("()");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,6 +151,8 @@ public class EncripDesencrip extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblConteo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -158,7 +169,8 @@ public class EncripDesencrip extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl1)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl3))
+                    .addComponent(lbl3)
+                    .addComponent(lblConteo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -216,6 +228,10 @@ public class EncripDesencrip extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
+        lblConteo.setText("(" + (txtClave.getText().length() + 1) + ")");
+    }//GEN-LAST:event_txtClaveKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -261,6 +277,7 @@ public class EncripDesencrip extends javax.swing.JFrame {
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
+    private javax.swing.JLabel lblConteo;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextArea txta1;
     private javax.swing.JTextArea txta2;
