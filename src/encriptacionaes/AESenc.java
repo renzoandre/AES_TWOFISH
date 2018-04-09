@@ -8,8 +8,12 @@ import java.util.Base64;
 public class AESenc {
 
     private static final String ALGO = "AES";
-    private static final byte[] keyValue
-            = new byte[]{'T', 'h', 'e', 'B', 'e', 's', 't', 'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y'};
+    //private static final byte[] keyValue = new byte[]{'T', 'h', 'e', 'B', 'e', 's', 't', 'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y'};
+    private static byte[] keyValue;
+
+    public AESenc(byte[] clave) {
+        this.keyValue = clave;
+    }
 
     /**
      * Encrypt a string with AES algorithm.

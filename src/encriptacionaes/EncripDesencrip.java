@@ -5,10 +5,16 @@
  */
 package encriptacionaes;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -26,6 +32,7 @@ public class EncripDesencrip extends javax.swing.JFrame {
     public EncripDesencrip() {
         initComponents();
         setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     public void inicializar() {
@@ -58,9 +65,15 @@ public class EncripDesencrip extends javax.swing.JFrame {
         txta2 = new javax.swing.JTextArea();
         btnEncripDesencrip = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        txtClave = new javax.swing.JTextField();
+        lbl3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
+        btnBuscar.setBackground(new java.awt.Color(51, 130, 255));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar archivo");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,18 +81,23 @@ public class EncripDesencrip extends javax.swing.JFrame {
             }
         });
 
+        lbl1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl1.setText("Texto a encriptar");
 
         txta1.setColumns(20);
         txta1.setRows(5);
         jScrollPane1.setViewportView(txta1);
 
+        lbl2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl2.setText("Texto a encriptado");
 
         txta2.setColumns(20);
         txta2.setRows(5);
         jScrollPane2.setViewportView(txta2);
 
+        btnEncripDesencrip.setBackground(new java.awt.Color(51, 130, 255));
+        btnEncripDesencrip.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEncripDesencrip.setForeground(new java.awt.Color(255, 255, 255));
         btnEncripDesencrip.setText("ENCRIPTAR!");
         btnEncripDesencrip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,12 +105,20 @@ public class EncripDesencrip extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setBackground(new java.awt.Color(51, 130, 255));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
+
+        txtClave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        lbl3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl3.setText("Clave :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,19 +128,23 @@ public class EncripDesencrip extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl1)
-                            .addComponent(lbl2))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 867, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEncripDesencrip))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRegresar)))
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -125,7 +155,10 @@ public class EncripDesencrip extends javax.swing.JFrame {
                     .addComponent(btnBuscar)
                     .addComponent(btnEncripDesencrip))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl1)
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -147,25 +180,34 @@ public class EncripDesencrip extends javax.swing.JFrame {
             JFileChooser jfc = new JFileChooser();
             jfc.showOpenDialog(this);
             File f = jfc.getSelectedFile();
-
             if (f != null) {
-                FileReader archivos = new FileReader(f);
-                BufferedReader lee = new BufferedReader(archivos);
-                while ((aux = lee.readLine()) != null) {
+                FileInputStream fis = new FileInputStream(f);
+                InputStreamReader is = new InputStreamReader(fis, "ISO-8859-1");
+                BufferedReader bf = new BufferedReader(is);                
+                while ((aux = bf.readLine()) != null) {
                     texto += aux + "\n";
                 }
-                lee.close();
+                bf.close();
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex + "\nNo se ha encontrado el archivo",
                     "ADVERTENCIA!!!", JOptionPane.WARNING_MESSAGE);
-        }
+        }   
+        
         System.out.println(texto);
         txta1.setText(texto);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEncripDesencripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncripDesencripActionPerformed
-        // TODO add your handling code here:
+        byte[] b = txtClave.getText().getBytes(StandardCharsets.ISO_8859_1);
+        AESenc aes = new AESenc(b);
+        String clave = new String(b, StandardCharsets.ISO_8859_1);
+        System.err.println(clave);
+        try {
+            txta2.setText(aes.encrypt(txta1.getText()));
+        } catch (Exception e) {
+        }
+        
     }//GEN-LAST:event_btnEncripDesencripActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -218,6 +260,8 @@ public class EncripDesencrip extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
+    private javax.swing.JLabel lbl3;
+    private javax.swing.JTextField txtClave;
     private javax.swing.JTextArea txta1;
     private javax.swing.JTextArea txta2;
     // End of variables declaration//GEN-END:variables
