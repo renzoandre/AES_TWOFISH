@@ -199,6 +199,8 @@ public class EncripDesencrip extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEncripDesencripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncripDesencripActionPerformed
+       
+        if(operacion==0){
         byte[] b = txtClave.getText().getBytes(StandardCharsets.ISO_8859_1);
         AESenc aes = new AESenc(b);
         String clave = new String(b, StandardCharsets.ISO_8859_1);
@@ -206,8 +208,29 @@ public class EncripDesencrip extends javax.swing.JFrame {
         try {
             txta2.setText(aes.encrypt(txta1.getText()));
         } catch (Exception e) {
+            System.out.println(e);
+        }
         }
         
+        if(operacion==1){
+            					
+            byte tempKey2[] = txtClave.getText().getBytes(StandardCharsets.ISO_8859_1);
+            byte key2[] = new byte[32];
+            byte ct[]=txta1.getText().getBytes();
+            for(int i=0; i<32;i++)
+            {
+		if(i<tempKey2.length)  key2[i] = tempKey2[i];
+		else key2[i] = (byte)0;
+            }
+            Object K2 = Twofish_Algorithm.makeKey(key2);
+            byte[] cpt = Twofish_Algorithm.blockDecrypt(ct, 0, K2);
+            String ot = new String(cpt);
+            System.out.println("Decrypted Text : "+ot);
+            try {
+                txta2.setText(ot);
+            } catch (Exception e) {
+            }
+        }
     }//GEN-LAST:event_btnEncripDesencripActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
