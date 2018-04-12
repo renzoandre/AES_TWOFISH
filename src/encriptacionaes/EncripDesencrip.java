@@ -5,6 +5,8 @@
  */
 package encriptacionaes;
 
+import static encriptacionaes.Serpent_Algorithm.blockDecrypt;
+import static encriptacionaes.Serpent_Algorithm.makeKey;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import java.util.Base64;
 
 /**
  *
@@ -213,22 +216,16 @@ public class EncripDesencrip extends javax.swing.JFrame {
         }
         
         if(operacion==1){
-            					
-            byte tempKey2[] = txtClave.getText().getBytes(StandardCharsets.ISO_8859_1);
-            byte key2[] = new byte[32];
-            byte ct[]=txta1.getText().getBytes();
-            for(int i=0; i<32;i++)
-            {
-		if(i<tempKey2.length)  key2[i] = tempKey2[i];
-		else key2[i] = (byte)0;
-            }
-            Object K2 = Twofish_Algorithm.makeKey(key2);
-            byte[] cpt = Twofish_Algorithm.blockDecrypt(ct, 0, K2);
-            String ot = new String(cpt);
-            System.out.println("Decrypted Text : "+ot);
             try {
-                txta2.setText(ot);
+                
+                byte [] keyb=txtClave.getText().getBytes();
+                String txtci=txta1.getText();
+                byte[] tBytes = Base64.getDecoder().decode(txtci);
+                byte [] txtori=blockDecrypt(tBytes,0,makeKey(keyb));
+                System.out.println("texto desencriptado : "+new String(txtori));
+                txta2.setText(new String(txtori));
             } catch (Exception e) {
+                System.out.println(e);
             }
         }
     }//GEN-LAST:event_btnEncripDesencripActionPerformed
